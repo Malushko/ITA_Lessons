@@ -28,20 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CoreForm));
             this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.bikeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsSeparator = new System.Windows.Forms.ToolStripSeparator();
+            this.openSavedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.windowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsSeparator = new System.Windows.Forms.ToolStripSeparator();
-            this.openSavedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scContent = new System.Windows.Forms.SplitContainer();
             this.lvBikes = new System.Windows.Forms.ListView();
             this.colName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colSize = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.saveToFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToDbToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scContent)).BeginInit();
             this.scContent.Panel1.SuspendLayout();
@@ -67,10 +71,14 @@
             this.addToolStripMenuItem,
             this.removeToolStripMenuItem,
             this.tsSeparator,
-            this.openSavedToolStripMenuItem});
+            this.openSavedToolStripMenuItem,
+            this.saveToFileToolStripMenuItem,
+            this.saveToDbToolStripMenuItem});
             this.bikeToolStripMenuItem.Name = "bikeToolStripMenuItem";
             this.bikeToolStripMenuItem.Size = new System.Drawing.Size(49, 24);
             this.bikeToolStripMenuItem.Text = "Bike";
+            this.bikeToolStripMenuItem.ToolTipText = "Hello";
+            this.bikeToolStripMenuItem.MouseHover += new System.EventHandler(this.bikeToolStripMenuItem_MouseHover);
             // 
             // addToolStripMenuItem
             // 
@@ -85,6 +93,18 @@
             this.removeToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.removeToolStripMenuItem.Text = "Remove";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            // 
+            // tsSeparator
+            // 
+            this.tsSeparator.Name = "tsSeparator";
+            this.tsSeparator.Size = new System.Drawing.Size(178, 6);
+            // 
+            // openSavedToolStripMenuItem
+            // 
+            this.openSavedToolStripMenuItem.Name = "openSavedToolStripMenuItem";
+            this.openSavedToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.openSavedToolStripMenuItem.Text = "Open saved";
+            this.openSavedToolStripMenuItem.Click += new System.EventHandler(this.openSavedToolStripMenuItem_Click);
             // 
             // aboutToolStripMenuItem
             // 
@@ -103,21 +123,9 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(108, 26);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // tsSeparator
-            // 
-            this.tsSeparator.Name = "tsSeparator";
-            this.tsSeparator.Size = new System.Drawing.Size(178, 6);
-            // 
-            // openSavedToolStripMenuItem
-            // 
-            this.openSavedToolStripMenuItem.Name = "openSavedToolStripMenuItem";
-            this.openSavedToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
-            this.openSavedToolStripMenuItem.Text = "Open saved";
-            this.openSavedToolStripMenuItem.Click += new System.EventHandler(this.openSavedToolStripMenuItem_Click);
             // 
             // scContent
             // 
@@ -140,14 +148,17 @@
             this.colName,
             this.colSize});
             this.lvBikes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvBikes.FullRowSelect = true;
             this.lvBikes.GridLines = true;
             this.lvBikes.Location = new System.Drawing.Point(0, 0);
             this.lvBikes.MultiSelect = false;
             this.lvBikes.Name = "lvBikes";
             this.lvBikes.Size = new System.Drawing.Size(170, 345);
             this.lvBikes.TabIndex = 0;
+            this.toolTip.SetToolTip(this.lvBikes, "Hello, I am bike button");
             this.lvBikes.UseCompatibleStateImageBehavior = false;
             this.lvBikes.View = System.Windows.Forms.View.Details;
+            this.lvBikes.SelectedIndexChanged += new System.EventHandler(this.lvBikes_SelectedIndexChanged);
             // 
             // colName
             // 
@@ -157,6 +168,19 @@
             // colSize
             // 
             this.colSize.Text = "Size";
+            // 
+            // saveToFileToolStripMenuItem
+            // 
+            this.saveToFileToolStripMenuItem.Name = "saveToFileToolStripMenuItem";
+            this.saveToFileToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.saveToFileToolStripMenuItem.Text = "SaveToFile";
+            this.saveToFileToolStripMenuItem.Click += new System.EventHandler(this.saveToFileToolStripMenuItem_Click);
+            // 
+            // saveToDbToolStripMenuItem
+            // 
+            this.saveToDbToolStripMenuItem.Name = "saveToDbToolStripMenuItem";
+            this.saveToDbToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.saveToDbToolStripMenuItem.Text = "SaveToDb";
             // 
             // CoreForm
             // 
@@ -197,6 +221,9 @@
         private System.Windows.Forms.ListView lvBikes;
         private System.Windows.Forms.ColumnHeader colName;
         private System.Windows.Forms.ColumnHeader colSize;
+        private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.ToolStripMenuItem saveToFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToDbToolStripMenuItem;
     }
 }
 
